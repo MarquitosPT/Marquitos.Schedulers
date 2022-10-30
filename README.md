@@ -2,4 +2,4 @@
 
 # Marquitos.Schedulers
 
-Scheduler Framework for .Net Applications
+A simple Scheduler engine for .Net Applications.
