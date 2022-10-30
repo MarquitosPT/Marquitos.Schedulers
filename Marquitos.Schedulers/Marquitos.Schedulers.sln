@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0D17F210-7B5E-4DD5-B650-95501F1866C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marquitos.Schedulers", "src\Marquitos.Schedulers\Marquitos.Schedulers.csproj", "{32184DF0-C16D-4BB3-A03B-B5F90AAC7C37}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32184DF0-C16D-4BB3-A03B-B5F90AAC7C37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32184DF0-C16D-4BB3-A03B-B5F90AAC7C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32184DF0-C16D-4BB3-A03B-B5F90AAC7C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32184DF0-C16D-4BB3-A03B-B5F90AAC7C37}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{32184DF0-C16D-4BB3-A03B-B5F90AAC7C37} = {0D17F210-7B5E-4DD5-B650-95501F1866C9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {40061C77-E438-4E30-BEC2-4BB3017A7796}
+	EndGlobalSection
+EndGlobal
