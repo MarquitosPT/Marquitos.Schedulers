@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NCrontab;
+using System.Threading.Tasks;
 
 namespace Marquitos.Schedulers.Services
 {
@@ -55,6 +56,15 @@ namespace Marquitos.Schedulers.Services
             {
                 NextRunTime = DateTime.MaxValue;
                 IsEnabled = false;
+            }
+
+            if (IsEnabled)
+            {
+                _logger.LogInformation("{Task} is enabled and will be triggered at {NextRunTime}.", typeof(T).Name, NextRunTime);
+            }
+            else
+            {
+                _logger.LogInformation("{Task} is not enabled.", typeof(T).Name);
             }
         }
 
