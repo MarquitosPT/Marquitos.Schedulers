@@ -1,5 +1,8 @@
 ﻿namespace Marquitos.Schedulers
 {
+    /// <summary>
+    /// ScheduledTask Options
+    /// </summary>
     public class ScheduledTaskOptions
     {
         /// <summary>
