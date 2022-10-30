@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NCrontab;
-using System.Threading.Tasks;
 
 namespace Marquitos.Schedulers.Services
 {
@@ -101,14 +100,21 @@ namespace Marquitos.Schedulers.Services
                         }
                         finally
                         {
-                            _logger.LogInformation("Finished executing {Task} on {Machine}.", task.GetType().Name, machineName);
-
                             NextRunTime = schedule.GetNextOccurrence(DateTime.Now, options.EndOn);
 
                             if (NextRunTime >= options.EndOn && DateTime.Now > options.EndOn)
                             {
                                 NextRunTime = DateTime.MaxValue;
                                 IsEnabled = false;
+                            }
+
+                            if (IsEnabled)
+                            {
+                                _logger.LogInformation("Finished executing {Task} on {Machine} and will be triggered again at {NextRunTime}.", task.GetType().Name, machineName, NextRunTime);
+                            }
+                            else
+                            {
+                                _logger.LogInformation("Finished executing {Task} on {Machine}.", task.GetType().Name, machineName);
                             }
                         }
                     }
