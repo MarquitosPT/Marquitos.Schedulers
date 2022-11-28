@@ -57,7 +57,8 @@ namespace Marquitos.Schedulers.Extensions.Configuration
         {
             services.AddScoped<T>();
             services.AddSingleton<IScheduledTaskService, ScheduledTaskService<T>>((serviceProvider) => {
-                var result = serviceProvider.GetRequiredService<ScheduledTaskService<T>>();
+                var logger = serviceProvider.GetRequiredService<ILogger<ScheduledTaskService<T>>>();
+                var result = new ScheduledTaskService<T>(serviceProvider, logger);
 
                 result.ConfigureOptions = async (sp, st) => {
 
@@ -82,7 +83,8 @@ namespace Marquitos.Schedulers.Extensions.Configuration
         {
             services.AddScoped<T>();
             services.AddSingleton<IScheduledTaskService, ScheduledTaskService<T>>((serviceProvider) => {
-                var result = serviceProvider.GetRequiredService<ScheduledTaskService<T>>();
+                var logger = serviceProvider.GetRequiredService<ILogger<ScheduledTaskService<T>>>();
+                var result = new ScheduledTaskService<T>(serviceProvider, logger);
 
                 result.ConfigureOptions = async (sp, st) => {
                     if (configureOptions != null)
