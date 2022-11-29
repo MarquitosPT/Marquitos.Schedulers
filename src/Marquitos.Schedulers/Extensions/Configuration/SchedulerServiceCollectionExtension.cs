@@ -98,5 +98,31 @@ namespace Marquitos.Schedulers.Extensions.Configuration
 
             return services;
         }
+
+        /// <summary>
+        /// Register the specified ScheduledTask to run on the configured scheduled time.
+        /// </summary>
+        /// <param name="services">This Service Collection</param>
+        /// <param name="scheduledTaskConfiguration">A class that implements the <see cref="IScheduledTaskConfiguration{T}"/> to asynchronous configure the scheduled task options.</param>
+        /// <returns></returns>
+        public static IServiceCollection AddScheduledTask<T>(this IServiceCollection services, IScheduledTaskConfiguration<T> scheduledTaskConfiguration) where T : class, IScheduledTask
+        {
+            services.AddScoped<T>();
+            services.AddSingleton<IScheduledTaskService, ScheduledTaskService<T>>((serviceProvider) => {
+                var logger = serviceProvider.GetRequiredService<ILogger<ScheduledTaskService<T>>>();
+                var result = new ScheduledTaskService<T>(serviceProvider, logger);
+
+                result.ConfigureOptions = async (sp, st) => {
+                    if (scheduledTaskConfiguration != null)
+                    {
+                        await scheduledTaskConfiguration.ConfigureAsync(sp, st);
+                    }
+                };
+
+                return result;
+            });
+
+            return services;
+        }
     }
 }
