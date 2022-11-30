@@ -48,7 +48,17 @@ namespace Marquitos.Schedulers.Services
                     IncludingSeconds = options.Schedule.Trim().Count(e => e == ' ') == 5
                 });
 
-            NextRunTime = schedule.GetNextOccurrence(options.BeginOn, options.EndOn);
+            
+            // Prevent execution of passed ocurrence
+            if (options.BeginOn < DateTime.Now)
+            {
+                NextRunTime = schedule.GetNextOccurrence(DateTime.Now, options.EndOn);
+            }
+            else
+            {
+                NextRunTime = schedule.GetNextOccurrence(options.BeginOn, options.EndOn);
+            }
+            
             IsEnabled = options.IsEnabled;
 
             if (NextRunTime >= options.EndOn && DateTime.Now > options.EndOn)
