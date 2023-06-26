@@ -17,10 +17,11 @@
 		<AssemblyOriginatorKeyFile>..\..\tools\MarquitosPT.snk</AssemblyOriginatorKeyFile>
 		<Authors>Marcos Gomes</Authors>
 		<Company>MarquitosPT</Company>
-		<Copyright>2022 - MarquitosPT</Copyright>
+		<Copyright>2022-2023 - MarquitosPT</Copyright>
 		<PackageProjectUrl>https://github.com/MarquitosPT/Marquitos.Schedulers</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/MarquitosPT/Marquitos.Schedulers</RepositoryUrl>
 		<PackageTags>scheduler;scheduler-service;scheduler-engine</PackageTags>
+                <Description>A simple Scheduler engine for .Net Applications.</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
