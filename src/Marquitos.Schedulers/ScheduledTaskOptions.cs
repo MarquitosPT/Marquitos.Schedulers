@@ -24,5 +24,10 @@
         /// Indicates if the scheduled task is active and should run at given schedule.
         /// </summary>
         public bool IsEnabled { get; set; } = true;
+
+        /// <summary>
+        /// If provided, the service engine will only execute the scheduled Task on those machines
+        /// </summary>
+        public IEnumerable<string> MachinesAllowedToRun { get; set; } = new List<string>();
     }
 }

@@ -7,11 +7,13 @@ namespace Marquitos.Schedulers.Services
     {
         private readonly ILogger<SchedulerService> _logger;
         private readonly IEnumerable<IScheduledTaskService> _services;
+        private readonly SchedulerServiceOptions _options;
 
-        public SchedulerService(ILogger<SchedulerService> logger, IEnumerable<IScheduledTaskService> services)
+        public SchedulerService(ILogger<SchedulerService> logger, IEnumerable<IScheduledTaskService> services, SchedulerServiceOptions options)
         {
             _logger = logger;
             _services = services;
+            _options = options;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -69,10 +71,38 @@ namespace Marquitos.Schedulers.Services
         }
 
         private bool IsEnabled()
-        {
-            var envSetting = System.Environment.GetEnvironmentVariable("SCHEDULER_SERVICE_ENABLED");
+        {    
+            if (_options.SuppressMachineSystemEnabledSetting)
+            {
+                if (_options.MachinesAllowedToRun.Any())
+                {
+                    return _options.MachinesAllowedToRun.Contains(System.Environment.MachineName);
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                var envSetting = System.Environment.GetEnvironmentVariable("SCHEDULER_SERVICE_ENABLED");
 
-            return (envSetting == null || bool.Parse(envSetting) == true);
+                if (envSetting != null && bool.Parse(envSetting) == false)
+                {
+                    return false;
+                }
+                else
+                {
+                    if (_options.MachinesAllowedToRun.Any())
+                    {
+                        return _options.MachinesAllowedToRun.Contains(System.Environment.MachineName);
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+            }
         }
     }
 }

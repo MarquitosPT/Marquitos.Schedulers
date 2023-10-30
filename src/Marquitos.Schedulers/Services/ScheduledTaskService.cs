@@ -58,8 +58,17 @@ namespace Marquitos.Schedulers.Services
             {
                 NextRunTime = schedule.GetNextOccurrence(options.BeginOn, options.EndOn);
             }
-            
-            IsEnabled = options.IsEnabled;
+
+            if (options.MachinesAllowedToRun.Any())
+            {
+                var machineName = System.Environment.MachineName;
+
+                IsEnabled = options.IsEnabled && options.MachinesAllowedToRun.Contains(machineName);
+            }
+            else
+            {
+                IsEnabled = options.IsEnabled;
+            }
 
             if (NextRunTime >= options.EndOn && DateTime.Now > options.EndOn)
             {

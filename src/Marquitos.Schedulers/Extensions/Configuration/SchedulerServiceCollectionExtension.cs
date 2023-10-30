@@ -17,6 +17,21 @@ namespace Marquitos.Schedulers.Extensions.Configuration
         public static IServiceCollection AddSchedulerService(this IServiceCollection services)
         {
             services.AddHostedService<SchedulerService>();
+            services.AddSingleton(new SchedulerServiceOptions());
+
+            return services;
+        }
+
+        /// <summary>
+        /// Registers the background Scheduler service
+        /// </summary>
+        /// <param name="services">This Service Collection</param>
+        /// <param name="options">Scheduler service configuration options</param>
+        /// <returns></returns>
+        public static IServiceCollection AddSchedulerService(this IServiceCollection services, SchedulerServiceOptions options)
+        {
+            services.AddHostedService<SchedulerService>();
+            services.AddSingleton(options);
 
             return services;
         }

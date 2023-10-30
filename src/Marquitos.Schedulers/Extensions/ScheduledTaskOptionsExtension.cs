@@ -22,6 +22,8 @@
             options.EndOn = sourceOptions.EndOn;
             options.Schedule = sourceOptions.Schedule;
             options.IsEnabled = sourceOptions.IsEnabled;
+            options.MachinesAllowedToRun = sourceOptions.MachinesAllowedToRun != null ? 
+                new List<string>(sourceOptions.MachinesAllowedToRun) : new List<string>();
         }
     }
 }
