@@ -37,6 +37,78 @@ namespace Marquitos.Schedulers.Extensions.Configuration
         }
 
         /// <summary>
+        /// Registers the background Scheduler service
+        /// </summary>
+        /// <param name="services">This Service Collection</param>
+        /// <param name="configureOptions">Action to configure the Scheduler service configuration options</param>
+        /// <returns></returns>
+        public static IServiceCollection AddSchedulerService(this IServiceCollection services, Action<SchedulerServiceOptions> configureOptions)
+        {
+            services.AddHostedService((serviceProvider) =>
+            {
+                var logger = serviceProvider.GetRequiredService<ILogger<SchedulerService>>();
+                var taskServices = serviceProvider.GetRequiredService<IEnumerable<IScheduledTaskService>>();
+                var options = new SchedulerServiceOptions();
+
+                configureOptions?.Invoke(options);
+
+                var result = new SchedulerService(logger, taskServices, options);
+
+                return result;
+            });
+
+            return services;
+        }
+
+        /// <summary>
+        /// Registers the background Scheduler service
+        /// </summary>
+        /// <param name="services">This Service Collection</param>
+        /// <param name="configureOptions">Action to configure the Scheduler service configuration options</param>
+        /// <returns></returns>
+        public static IServiceCollection AddSchedulerService(this IServiceCollection services, Action<IServiceProvider, SchedulerServiceOptions> configureOptions)
+        {
+            services.AddHostedService((serviceProvider) =>
+            {
+                var logger = serviceProvider.GetRequiredService<ILogger<SchedulerService>>();
+                var taskServices = serviceProvider.GetRequiredService<IEnumerable<IScheduledTaskService>>();
+                var options = new SchedulerServiceOptions();
+
+                configureOptions?.Invoke(serviceProvider, options);
+
+                var result = new SchedulerService(logger, taskServices, options);
+
+                return result;
+            });
+
+            return services;
+        }
+
+        /// <summary>
+        /// Registers the background Scheduler service
+        /// </summary>
+        /// <param name="services">This Service Collection</param>
+        /// <param name="configureOptions">Action to configure the Scheduler service configuration options</param>
+        /// <returns></returns>
+        public static IServiceCollection AddSchedulerService(this IServiceCollection services, Func<IServiceProvider, SchedulerServiceOptions, Task> configureOptions)
+        {
+            services.AddHostedService((serviceProvider) =>
+            {
+                var logger = serviceProvider.GetRequiredService<ILogger<SchedulerService>>();
+                var taskServices = serviceProvider.GetRequiredService<IEnumerable<IScheduledTaskService>>();
+                var options = new SchedulerServiceOptions();
+
+                configureOptions?.Invoke(serviceProvider, options).Wait();
+
+                var result = new SchedulerService(logger, taskServices, options);
+
+                return result;
+            });
+
+            return services;
+        }
+
+        /// <summary>
         /// Register the specified ScheduledTask to run on the configured scheduled time.
         /// </summary>
         /// <param name="services">This Service Collection</param>
