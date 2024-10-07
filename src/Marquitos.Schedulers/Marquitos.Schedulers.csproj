@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFrameworks>net6.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<RootNamespace>Marquitos.Schedulers</RootNamespace>
@@ -17,11 +17,11 @@
 		<AssemblyOriginatorKeyFile>..\..\tools\MarquitosPT.snk</AssemblyOriginatorKeyFile>
 		<Authors>Marcos Gomes</Authors>
 		<Company>MarquitosPT</Company>
-		<Copyright>2022-2023 - MarquitosPT</Copyright>
+		<Copyright>2024 - MarquitosPT</Copyright>
 		<PackageProjectUrl>https://github.com/MarquitosPT/Marquitos.Schedulers</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/MarquitosPT/Marquitos.Schedulers</RepositoryUrl>
 		<PackageTags>scheduler;scheduler-service;scheduler-engine</PackageTags>
-                <Description>A simple Scheduler engine for .Net Applications.</Description>
+		<Description>A simple Scheduler engine for .Net Applications.</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -31,10 +31,18 @@
 		</None>
 	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.2" />
-    <PackageReference Include="NCrontab.Signed" Version="3.3.2" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="NCrontab.Signed" Version="3.3.3" />
+	</ItemGroup>
 
 </Project>
