@@ -109,6 +109,30 @@ namespace Marquitos.Schedulers.Extensions.Configuration
         }
 
         /// <summary>
+        /// Registers the background Scheduler service
+        /// </summary>
+        /// <param name="services">This Service Collection</param>
+        /// <param name="serviceConfiguration">A configuration class that implements the ISchedulerServiceConfiguration interface.</param>
+        /// <returns></returns>
+        public static IServiceCollection AddSchedulerService(this IServiceCollection services, ISchedulerServiceConfiguration serviceConfiguration)
+        {
+            services.AddHostedService((serviceProvider) =>
+            {
+                var logger = serviceProvider.GetRequiredService<ILogger<SchedulerService>>();
+                var taskServices = serviceProvider.GetRequiredService<IEnumerable<IScheduledTaskService>>();
+                var options = new SchedulerServiceOptions();
+
+                serviceConfiguration.ConfigureAsync(serviceProvider, options).Wait();
+
+                var result = new SchedulerService(logger, taskServices, options);
+
+                return result;
+            });
+
+            return services;
+        }
+
+        /// <summary>
         /// Register the specified ScheduledTask to run on the configured scheduled time.
         /// </summary>
         /// <param name="services">This Service Collection</param>
