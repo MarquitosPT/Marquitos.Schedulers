@@ -1,4 +1,4 @@
-[![NuGet Badge](https://buildstats.info/nuget/Marquitos.Schedulers)](https://www.nuget.org/packages/Marquitos.Schedulers/)
+[![NuGet Version](https://img.shields.io/nuget/v/Marquitos.Schedulers)](https://www.nuget.org/packages/Marquitos.Schedulers/)
 
 # Marquitos.Schedulers
 
